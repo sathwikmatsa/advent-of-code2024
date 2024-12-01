@@ -23,4 +23,10 @@ public class Day01Test {
         assertEquals(11, Day01.listPairDistance(new ListPair(left, right)));
     }
 
+    @Test
+    public void listPairSimilarityScore() {
+        List<Integer> left = Arrays.asList(3, 4, 2, 1, 3, 3);
+        List<Integer> right = Arrays.asList(4, 3, 5, 3, 9, 3);
+        assertEquals(31, Day01.listPairSimilarityScore(new ListPair(left, right)));
+    }
 }

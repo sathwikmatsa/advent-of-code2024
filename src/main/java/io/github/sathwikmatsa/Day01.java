@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 record ListPair(List<Integer> left, List<Integer> right) {
@@ -39,8 +42,19 @@ class Day01 {
         return IntStream.range(0, left.size()).map(i -> Math.abs(left.get(i) - right.get(i))).sum();
     }
 
+    static int listPairSimilarityScore(ListPair lists) {
+        Map<Integer, Long> frequencyMap = lists.right().stream()
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+
+        List<Integer> left = lists.left();
+        return IntStream.range(0, left.size())
+                .map(i -> left.get(i) * frequencyMap.getOrDefault(left.get(i), 0L).intValue())
+                .sum();
+    }
+
     public static void main(String[] args) throws IOException {
         ListPair lists = parseInput("input/day01_part1.txt");
-        System.out.println(listPairDistance(lists));
+        System.out.println("Part1: " + listPairDistance(lists));
+        System.out.println("Part2: " + listPairSimilarityScore(lists));
     }
 }
