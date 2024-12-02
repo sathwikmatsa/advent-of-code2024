@@ -33,10 +33,10 @@ public class Day02Test {
 
     @Test
     public void isReportSafeV2() {
-        // assertEquals(true, Day02.isReportSafeV2(Arrays.asList(7, 6, 4, 2, 1)));
-        // assertEquals(false, Day02.isReportSafeV2(Arrays.asList(1, 2, 7, 8, 9)));
-        // assertEquals(false, Day02.isReportSafeV2(Arrays.asList(9, 7, 6, 2, 1)));
-        // assertEquals(true, Day02.isReportSafeV2(Arrays.asList(1, 3, 2, 4, 5)));
+        assertEquals(true, Day02.isReportSafeV2(Arrays.asList(7, 6, 4, 2, 1)));
+        assertEquals(false, Day02.isReportSafeV2(Arrays.asList(1, 2, 7, 8, 9)));
+        assertEquals(false, Day02.isReportSafeV2(Arrays.asList(9, 7, 6, 2, 1)));
+        assertEquals(true, Day02.isReportSafeV2(Arrays.asList(1, 3, 2, 4, 5)));
         assertEquals(true, Day02.isReportSafeV2(Arrays.asList(8, 6, 4, 4, 1)));
         assertEquals(true, Day02.isReportSafeV2(Arrays.asList(1, 3, 6, 7, 9)));
 
