@@ -46,9 +46,8 @@ class Day01 {
         Map<Integer, Long> frequencyMap = lists.right().stream()
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
 
-        List<Integer> left = lists.left();
-        return IntStream.range(0, left.size())
-                .map(i -> left.get(i) * frequencyMap.getOrDefault(left.get(i), 0L).intValue())
+        return lists.left().stream()
+                .mapToInt(i -> i * frequencyMap.getOrDefault(i, 0L).intValue())
                 .sum();
     }
 
