@@ -22,9 +22,6 @@ public class ListWithRemovedElement<T> extends AbstractList<T> {
 
     @Override
     public int size() {
-        if (indexToRemove < list.size()) {
-            return list.size() - 1;
-        }
-        return list.size();
+        return list.size() - 1;
     }
 }
