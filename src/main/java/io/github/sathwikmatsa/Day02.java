@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
+import io.github.sathwikmatsa.utils.ListWithRemovedElement;
+
 class Day02 {
 
     static List<List<Integer>> parseInput(String filename) throws IOException {
@@ -52,9 +54,7 @@ class Day02 {
         }).findFirst().getAsInt();
 
         return List.of(0, fault_index - 1, fault_index).stream().anyMatch(i -> {
-            List<Integer> report_copy = new ArrayList<>(report);
-            report_copy.remove(i.intValue());
-            return isReportSafe(report_copy);
+            return isReportSafe(new ListWithRemovedElement<>(report, i));
         });
     }
 
