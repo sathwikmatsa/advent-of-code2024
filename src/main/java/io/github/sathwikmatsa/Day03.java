@@ -9,17 +9,20 @@ import java.util.stream.Stream;
 
 public class Day03 {
 
+    private static final Pattern MUL_PATTERN = Pattern.compile("mul\\(\\d+,\\d+\\)");
+    private static final Pattern MUL_DO_DONT_PATTERN = Pattern.compile("mul\\(\\d+,\\d+\\)|do\\(\\)|don't\\(\\)");
+
     static String parseInput(String filename) throws IOException {
         return Files.readString(Paths.get(filename));
     }
 
     static String[] parseMulInstructions(String input) {
-        return Pattern.compile("mul\\(\\d+,\\d+\\)").matcher(input).results().map(MatchResult::group)
+        return MUL_PATTERN.matcher(input).results().map(MatchResult::group)
                 .toArray(String[]::new);
     }
 
     static String[] parseMulDoDontInstructions(String input) {
-        return Pattern.compile("mul\\(\\d+,\\d+\\)|do\\(\\)|don't\\(\\)").matcher(input).results()
+        return MUL_DO_DONT_PATTERN.matcher(input).results()
                 .map(MatchResult::group)
                 .toArray(String[]::new);
     }
