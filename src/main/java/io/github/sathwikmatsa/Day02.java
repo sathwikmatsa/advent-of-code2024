@@ -32,10 +32,10 @@ class Day02 {
         assert (report.size() > 1);
         boolean increasing = report.get(0) < report.get(1);
         return IntStream.range(1, report.size()).allMatch(i -> {
-            Integer left = report.get(i - 1);
-            Integer right = report.get(i);
-            int diff = Math.abs(left - right);
-            return (increasing ? right > left : right < left) && diff >= 1 && diff <= 3;
+            Integer prev = report.get(i - 1);
+            Integer cur = report.get(i);
+            int diff = Math.abs(prev - cur);
+            return (increasing ? cur > prev : cur < prev) && diff >= 1 && diff <= 3;
         });
     }
 
@@ -46,10 +46,10 @@ class Day02 {
 
         boolean increasing = report.get(0) < report.get(1);
         int fault_index = IntStream.range(1, report.size()).filter(i -> {
-            Integer left = report.get(i - 1);
-            Integer right = report.get(i);
-            int diff = Math.abs(left - right);
-            boolean safe = (increasing ? right > left : right < left) && diff >= 1 && diff <= 3;
+            Integer prev = report.get(i - 1);
+            Integer cur = report.get(i);
+            int diff = Math.abs(prev - cur);
+            boolean safe = (increasing ? cur > prev : cur < prev) && diff >= 1 && diff <= 3;
             return !safe;
         }).findFirst().getAsInt();
 
