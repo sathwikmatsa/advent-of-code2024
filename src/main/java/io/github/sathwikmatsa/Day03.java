@@ -7,7 +7,7 @@ import java.util.regex.MatchResult;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
-public class Day03 {
+class Day03 {
 
     private static final Pattern MUL_PATTERN = Pattern.compile("mul\\(\\d+,\\d+\\)");
     private static final Pattern MUL_DO_DONT_PATTERN = Pattern.compile("mul\\(\\d+,\\d+\\)|do\\(\\)|don't\\(\\)");
