@@ -58,7 +58,7 @@ public class Day04Test {
     }
 
     @Test
-    public void searchTowards() {
+    public void searchLinear() {
         String content = """
                 ..X...
                 .SAMX.
@@ -67,16 +67,34 @@ public class Day04Test {
                 .X....
                 """;
         Grid grid = Grid.of(content);
-        assertTrue(Day04.searchTowards(grid, 0, 2, new int[] { 1, 1 }));
-        assertTrue(Day04.searchTowards(grid, 1, 4, new int[] { 0, -1 }));
-        assertTrue(Day04.searchTowards(grid, 3, 0, new int[] { 0, 1 }));
-        assertTrue(Day04.searchTowards(grid, 4, 1, new int[] { -1, 0 }));
-        assertFalse(Day04.searchTowards(grid, 0, 2, new int[] { 0, 1 }));
+        assertTrue(Day04.searchLinear(grid, 0, 2, new int[] { 1, 1 }));
+        assertTrue(Day04.searchLinear(grid, 1, 4, new int[] { 0, -1 }));
+        assertTrue(Day04.searchLinear(grid, 3, 0, new int[] { 0, 1 }));
+        assertTrue(Day04.searchLinear(grid, 4, 1, new int[] { -1, 0 }));
+        assertFalse(Day04.searchLinear(grid, 0, 2, new int[] { 0, 1 }));
     }
 
     @Test
-    public void searchGrid() throws IOException {
+    public void searchXMAS() throws IOException {
         Grid grid = Grid.fromFile("input/day04_test.txt");
-        assertEquals(18, Day04.searchGrid(grid));
+        assertEquals(18, Day04.searchXMAS(grid));
+    }
+
+    @Test
+    public void searchX_MAS() {
+        String content = """
+                .M.S......
+                ..A..MSMS.
+                .M.S.MAA..
+                ..A.ASMSM.
+                .M.S.M....
+                ..........
+                S.S.S.S.S.
+                .A.A.A.A..
+                M.M.M.M.M.
+                ..........
+                """;
+        Grid grid = Grid.of(content);
+        assertEquals(9, Day04.searchX_MAS(grid));
     }
 }
