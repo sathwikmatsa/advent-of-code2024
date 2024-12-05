@@ -44,4 +44,15 @@ public class Day05Test {
         assertTrue(update.satisfiesRule(new OrderingRule(97, 13)));
         assertFalse(update.satisfiesRule(new OrderingRule(47, 75)));
     }
+
+    @Test
+    public void topologicalSort() throws IOException {
+        List<OrderingRule> rules = Day05.parseInput("input/day05_test_part1.txt").getKey();
+        Update update1 = Update.from(List.of(75, 97, 47, 61, 53));
+        Update update2 = Update.from(List.of(61, 13, 29));
+        Update update3 = Update.from(List.of(97, 13, 75, 29, 47));
+        assertEquals(List.of(97, 75, 47, 61, 53), Day05.topologicalSort(update1, rules));
+        assertEquals(List.of(61, 29, 13), Day05.topologicalSort(update2, rules));
+        assertEquals(List.of(97, 75, 47, 29, 13), Day05.topologicalSort(update3, rules));
+    }
 }

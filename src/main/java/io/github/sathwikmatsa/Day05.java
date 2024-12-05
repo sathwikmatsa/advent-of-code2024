@@ -1,8 +1,11 @@
 package io.github.sathwikmatsa;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -60,15 +63,43 @@ class Day05 {
         return new SimpleEntry<>(rules, updates);
     }
 
+    static List<Integer> topologicalSort(Update update, List<OrderingRule> rules) {
+        List<Integer> res = new ArrayList<>();
+        Map<Integer, List<Integer>> adjList = new HashMap<>();
+        Set<Integer> nodeList = update.pageIndexMap().keySet();
+        nodeList.forEach(n -> adjList.put(n, new ArrayList<>()));
+        rules.stream().filter(rule -> nodeList.contains(rule.before()) && nodeList.contains(rule.after()))
+                .forEach(rule -> adjList.get(rule.before()).add(rule.after()));
+        Set<Integer> visited = new HashSet<>();
+        nodeList.forEach(n -> dfs(adjList, visited, res, n));
+        return res.reversed();
+    }
+
+    static void dfs(Map<Integer, List<Integer>> adjList, Set<Integer> visited, List<Integer> res, Integer n) {
+        if (visited.contains(n)) {
+            return;
+        }
+        visited.add(n);
+        adjList.get(n).forEach(nbr -> dfs(adjList, visited, res, nbr));
+        res.add(n);
+    }
+
     public static void main(String[] args) throws IOException {
         SimpleEntry<List<OrderingRule>, List<Update>> input = Day05.parseInput("input/day05_part1.txt");
         List<OrderingRule> rules = input.getKey();
         List<Update> updates = input.getValue();
 
-        Integer middlePageSum = updates.stream()
+        Integer orderedSum = updates.stream()
                 .filter(update -> rules.stream().allMatch(rule -> update.satisfiesRule(rule)))
                 .mapToInt(update -> update.middleElement()).sum();
 
-        System.out.println("part1: " + middlePageSum);
+        Integer unorderedSum = updates.stream()
+                .filter(update -> rules.stream().anyMatch(rule -> !update.satisfiesRule(rule)))
+                .map(update -> Day05.topologicalSort(update, rules))
+                .mapToInt(list -> list.get(list.size() / 2))
+                .sum();
+
+        System.out.println("part1: " + orderedSum);
+        System.out.println("part2: " + unorderedSum);
     }
 }
